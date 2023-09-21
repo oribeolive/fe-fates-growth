@@ -1,0 +1,9 @@
+﻿id,name,key,base_HP,base_Str,base_Mag,base_Skl,base_Spd,base_Lck,base_Def,base_Res,growth_rate_hp,growth_rate_Str,growth_rate_Mag,growth_rate_Skl,growth_rate_Spd,growth_rate_Lck,growth_rate_Def,growth_rate_Res,max_Str,max_Mag,max_Skl,max_Spd,max_Lck,max_Def,max_Res
+1,健康,hp,3,0,0,0,0,0,0,0,15,0,0,0,0,0,5,5,1,1,0,0,2,2,2
+2,力持ち,str,0,2,0,0,0,0,0,0,0,15,0,5,0,0,5,0,4,0,2,0,0,2,0
+3,頭が良い,mag,0,0,3,0,0,0,0,0,0,0,20,0,5,0,0,5,0,4,0,2,0,0,2
+4,手先が器用,skl,0,0,0,3,0,0,0,0,0,5,0,25,0,0,5,0,2,0,4,0,0,2,0
+5,素早い,spd,0,0,0,0,2,0,0,0,0,0,0,5,15,5,0,0,0,0,2,4,2,0,0
+6,運が良い,lck,0,0,0,0,0,3,0,0,0,5,5,0,0,25,0,0,2,2,0,0,4,0,0
+7,打たれ強い,def,0,0,0,0,0,0,1,0,0,0,0,0,0,5,10,5,0,0,0,0,2,4,2
+8,冷静沈着,res,0,0,0,0,0,0,0,1,0,0,5,0,5,0,0,10,0,2,0,2,0,0,4
