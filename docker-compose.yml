@@ -3,22 +3,18 @@ services:
   web:
     container_name: "nginx"
     build: "./nginx"
-    # ホスト側のポート:コンテナ側のポートを指定
     ports:
       - "8080:80"
-    # src配下のファイルをコンテナ内の~/var/www/html配下に配置
     volumes:
       - "./backend/src:/var/www/html"
 
   php:
     container_name: "php"
-    build: "./php"
-    # srcディレクトリ内のファイルをコンテナ内の~/var/www/html配下にマウント
+    build: "./backend"
     volumes:
       - "./backend/src:/var/www/html"
 
   db:
-#      platform: linux/x86_64
       build: "./mysql"
       ports:
         - "3306:3306"
@@ -29,23 +25,14 @@ services:
         MYSQL_PASSWORD: password
         TZ: 'Asia/Tokyo'
       volumes:
-        # - ./mysql/conf.d:/etc/mysql/conf.d
         - ./mysql/data:/var/lib/mysql
         - ./sql:/docker-entrypoint-initdb.d
-#       healthcheck:
-#         test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-#         timeout: 20s
-#         retries: 10
 
   app:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
+    build: "./frontend"
     volumes:
-      - ./frontend/src:/src # ローカルをコンテナ内にマウント
-    command: sh -c "npm run dev"
+      - ./frontend/src:/src
+    command: sh -c "npm install && npm run dev"
     ports:
       - "3000:3000"
     stdin_open: true 
-    links:
-      - web

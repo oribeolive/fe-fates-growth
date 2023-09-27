@@ -1,3 +1,2 @@
-# FROM node:18.16-alpine
-FROM node:16
+FROM node:18.16-alpine
 WORKDIR /src
