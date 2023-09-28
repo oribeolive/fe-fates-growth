@@ -13,7 +13,7 @@ Clone the repository.
 git clone https://github.com/oribeolive/fe-fates-growth
 ```
 ## App without backend API
-This mode uses data in local files.
+This mode uses data in local JSON files.
 
 Build and start 'app' container.
 ```bash
