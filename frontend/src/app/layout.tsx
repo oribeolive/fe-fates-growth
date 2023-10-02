@@ -4,7 +4,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Fire Emblem Fates expected stats',
+  // title: 'Fire Emblem Fates expected stats',
+  title: 'ファイアーエムブレムif ステータス期待値',
   description: 'Expected stats of units of Fire Emblem Fates at every level',
 }
 

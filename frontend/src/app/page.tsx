@@ -66,17 +66,8 @@ const fetchJsonData = () => {
   }
 };
 
-// let fetchData = fetchApiData;
-// if (!process.env.USE_API) {
-//   fetchData = fetchJsonData;
-// }
-
 export default async function Home() {
 
-  // const obj = (async () => {
-  //   const { unitData, classes, strengths, weaknesses, parents } = await fetchData();
-  //   return { unitData:unitData, classes:classes, strengths:strengths, weaknesses:weaknesses, parents:parents }
-  // })()
   const { unitData, classes, strengths, weaknesses, parents } = process.env.DATA_SOURCE == 'api' ? await fetchApiData() : fetchJsonData();
 
   return (
@@ -84,12 +75,6 @@ export default async function Home() {
     <main className="flex flex-col justify-between px-6">
       <h1 className='text-xl font-bold text-red-800 dark:text-violet-200'><Link href=".">ファイアーエムブレムif ステータス期待値</Link></h1>
       <Contents units={unitData} classes={classes} strengths={strengths} weaknesses={weaknesses} parents={parents} />
-      {/* {unitBaseStats.map((element) => {
-        return (
-          <div key={element.id}>{element.name}</div>
-        );
-          
-      })} */}
     </main>
     </>
   )

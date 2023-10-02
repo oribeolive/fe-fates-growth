@@ -527,119 +527,121 @@ export default function Contents({units, classes, strengths, weaknesses, parents
         }
 </div>
 {selectedUnit && 
-<table className="table-auto ">
-<thead>
-    <tr className="bg-red-800 text-white dark:bg-violet-300 dark:text-black">
-        <th>成長率・上限値</th>
-        <th>HP</th>
-        <th>力</th>
-        <th>魔力</th>
-        <th>技</th>
-        <th>速さ</th>
-        <th>幸運</th>
-        <th>守備</th>
-        <th>魔防</th>
-        <th>合計</th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr>
-        <th>ユニット成長率</th>
-        {baseGrowthRates ? Object.values(baseGrowthRates).map((value, i) => <td className="text-center" key={i}>{value}</td>): ''}
-        <td className="text-center ">{baseGrowthRates ? Object.values(baseGrowthRates).map((value) => value).reduce((sum, num) => sum + num) : ''}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr className="bg-red-50 dark:bg-violet-950">
-        <th>ユニット上限値</th>
-        {baseMaxStats ? Object.values(baseMaxStats).map((value, i) => <td className="text-center" key={i}>{value}</td>): ''}
-        <td className="text-center ">{baseMaxStats ? Object.values(baseMaxStats).map((value) => value).reduce((sum, num) => sum + num) : ''}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>基本値調整</th>
-        {Object.entries(inputedBaseStats).map((entry, i) => {
-            return (
-                <th key={`add-bs-th-${i}`}>
-                    <input type="number" value={entry[1]} name={entry[0]} step="any" onInput={handleInputBaseStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="-99" max="99" />
+<div className="overflow-x-scroll">
+    <table className="table-auto w-full">
+        <thead>
+            <tr className="bg-red-800 text-white dark:bg-violet-300 dark:text-black">
+                <th>成長率・上限値</th>
+                <th>HP</th>
+                <th>力</th>
+                <th>魔力</th>
+                <th>技</th>
+                <th>速さ</th>
+                <th>幸運</th>
+                <th>守備</th>
+                <th>魔防</th>
+                <th>合計</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>ユニット成長率</th>
+                {baseGrowthRates ? Object.values(baseGrowthRates).map((value, i) => <td className="text-center" key={i}>{value}</td>): ''}
+                <td className="text-center ">{baseGrowthRates ? Object.values(baseGrowthRates).map((value) => value).reduce((sum, num) => sum + num) : ''}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr className="bg-red-50 dark:bg-violet-950">
+                <th>ユニット上限値</th>
+                {baseMaxStats ? Object.values(baseMaxStats).map((value, i) => <td className="text-center" key={i}>{value}</td>): ''}
+                <td className="text-center ">{baseMaxStats ? Object.values(baseMaxStats).map((value) => value).reduce((sum, num) => sum + num) : ''}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>基本値調整</th>
+                {Object.entries(inputedBaseStats).map((entry, i) => {
+                    return (
+                        <th key={`add-bs-th-${i}`}>
+                            <input type="number" value={entry[1]} name={entry[0]} step="any" onInput={handleInputBaseStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="-99" max="99" />
+                        </th>
+                    );
+                })}
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>上限値調整</th>
+                {Object.entries(inputedMaxStats).map((entry, i) => {
+                    return (
+                        <th key={`add-ms-th-${i}`}>
+                            {entry[0] != 'hp' ? 
+                            <input type="number" value={entry[1]} name={entry[0]} onInput={handleInputMaxStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" max="15" min="0" />
+                            : ''}
+                        </th>
+                    );
+                })}
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr className="bg-red-800 text-white dark:bg-violet-300 dark:text-black">
+                <th>Lv</th>
+                <th>HP</th>
+                <th>力</th>
+                <th>魔力</th>
+                <th>技</th>
+                <th>速さ</th>
+                <th>幸運</th>
+                <th>守備</th>
+                <th>魔防</th>
+                <th>合計</th>
+                <th>クラス</th>
+                <th>MP</th>
+                <th>
+                    <label htmlFor="aptitude-0">良成長</label>
+                    {checkedAptitudes &&
+                    <input type="checkbox" name="aptitude" value="0" id="aptitude-0" checked={checkedAptitudes[0].checked} onChange={handleCheckAptitude} data-testid={`aptitude-0`} />} 
                 </th>
-            );
-        })}
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr><tr>
-        <th>上限値調整</th>
-        {Object.entries(inputedMaxStats).map((entry, i) => {
-            return (
-                <th key={`add-ms-th-${i}`}>
-                    {entry[0] != 'hp' ? 
-                    <input type="number" value={entry[1]} name={entry[0]} onInput={handleInputMaxStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" max="15" min="0" />
-                    : ''}
+            </tr>
+            {rows.map((row: StatsRowType|undefined) => {
+                return (
+                    row &&
+                    <TableRow key={row.lv} row={row} classes={classes} selectParallel={selectParallel} selectMaster={selectMaster} handleCheckAptitude={handleCheckAptitude} />
+                )
+            })}
+            <tr className="bg-red-800 text-white dark:bg-violet-300 dark:text-black">
+                <th>Lv</th>
+                <th>HP</th>
+                <th>力</th>
+                <th>魔力</th>
+                <th>技</th>
+                <th>速さ</th>
+                <th>幸運</th>
+                <th>守備</th>
+                <th>魔防</th>
+                <th>合計</th>
+                <th>クラス</th>
+                <th>MP</th>
+                <th>
+                    <label htmlFor="aptitude-0-2">良成長</label>
+                    {checkedAptitudes &&
+                    <input type="checkbox" name="aptitude" value="0" id="aptitude-0-2" checked={checkedAptitudes[0].checked} onChange={handleCheckAptitude} />} 
                 </th>
-            );
-        })}
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
-</thead>
-<tbody>
-
-    <tr className="bg-red-800 text-white dark:bg-violet-300 dark:text-black">
-        <th>Lv</th>
-        <th>HP</th>
-        <th>力</th>
-        <th>魔力</th>
-        <th>技</th>
-        <th>速さ</th>
-        <th>幸運</th>
-        <th>守備</th>
-        <th>魔防</th>
-        <th>合計</th>
-        <th>クラス</th>
-        <th>MP</th>
-        <th>
-            <label htmlFor="aptitude-0">良成長</label>
-            {checkedAptitudes &&
-            <input type="checkbox" name="aptitude" value="0" id="aptitude-0" checked={checkedAptitudes[0].checked} onChange={handleCheckAptitude} data-testid={`aptitude-0`} />} 
-        </th>
-    </tr>
-    {rows.map((row: StatsRowType|undefined) => {
-        return (
-            row &&
-            <TableRow key={row.lv} row={row} classes={classes} selectParallel={selectParallel} selectMaster={selectMaster} handleCheckAptitude={handleCheckAptitude} />
-        )
-    })}
-    <tr className="bg-red-800 text-white dark:bg-violet-300 dark:text-black">
-        <th>Lv</th>
-        <th>HP</th>
-        <th>力</th>
-        <th>魔力</th>
-        <th>技</th>
-        <th>速さ</th>
-        <th>幸運</th>
-        <th>守備</th>
-        <th>魔防</th>
-        <th>合計</th>
-        <th>クラス</th>
-        <th>MP</th>
-        <th>
-            <label htmlFor="aptitude-0-2">良成長</label>
-            {checkedAptitudes &&
-            <input type="checkbox" name="aptitude" value="0" id="aptitude-0-2" checked={checkedAptitudes[0].checked} onChange={handleCheckAptitude} />} 
-        </th>
-    </tr>
-    
-</tbody>  
-<tfoot>
-    <tr><td colSpan={13} className="text-center py-2"><button className="bg-red-500 hover:bg-red-600 dark:bg-violet-600 dark:hover:bg-violet-500 text-white font-bold py-2 px-4 rounded" onClick={handleEP} data-testid="ep-button">Lv上限+5</button></td></tr>
-</tfoot>
-</table>
+            </tr>
+            
+        </tbody>  
+        <tfoot>
+            <tr><td colSpan={13} className="text-center py-2"><button className="bg-red-500 hover:bg-red-600 dark:bg-violet-600 dark:hover:bg-violet-500 text-white font-bold py-2 px-4 rounded" onClick={handleEP} data-testid="ep-button">Lv上限+5</button></td></tr>
+        </tfoot>
+    </table>
+</div>
 }
 </>
     );
