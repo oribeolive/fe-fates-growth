@@ -73,7 +73,7 @@ export default async function Home() {
   return (
     <>
     <main className="flex flex-col justify-between px-6">
-      <h1 className='text-xl font-bold text-red-800 dark:text-violet-200'><Link href=".">ファイアーエムブレムif ステータス期待値</Link></h1>
+      <h1 className='text-lg font-bold text-red-800 dark:text-violet-200'><Link href=".">ファイアーエムブレムif ステータス期待値</Link></h1>
       <Contents units={unitData} classes={classes} strengths={strengths} weaknesses={weaknesses} parents={parents} />
     </main>
     </>

@@ -15,13 +15,13 @@ export default function SelectStrengths({strengths, isStrength, selected, select
     const elementId = isStrength ? 'strength' : 'weakness';
     return (
         <>
-            <label htmlFor={elementId} className="mr-2">{label}</label>
+            <label htmlFor={elementId} className="mr-2 block">{label}</label>
             <select 
                 onChange={handleSelectStrength} 
                 // data-is-strength="1"
                 id={elementId}
                 value={selected}
-                className="mr-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="mr-5 mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 data-testid={`${elementId}-select`}
             >
                 {strengths.map((strength: StrengthType) => {

@@ -498,7 +498,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
         <SelectStrengths strengths={weaknesses} isStrength={false} selected={selectedWeakness.id} selectStrength={selectStrength} />
     </div>
     <div className="mb-4">
-    <label htmlFor="unit-select" className="mr-2">ユニット</label>
+        <label htmlFor="unit-select" className="mr-2 block">ユニット</label>
         <select 
             id="unit-select"
             onChange={handleSelectUnit} 
@@ -525,13 +525,12 @@ export default function Contents({units, classes, strengths, weaknesses, parents
             <SelectParents parents={parentsParents} selectedParent={selectedGrandParent} selectParent={selectGrandParent} isGrand={true} /> 
             : ''
         }
-</div>
-{selectedUnit && 
-<div className="overflow-x-scroll">
+    </div>
+    {selectedUnit && 
     <table className="table-auto w-full">
         <thead>
             <tr className="bg-red-800 text-white dark:bg-violet-300 dark:text-black">
-                <th>成長率・上限値</th>
+                <th></th>
                 <th>HP</th>
                 <th>力</th>
                 <th>魔力</th>
@@ -541,25 +540,19 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                 <th>守備</th>
                 <th>魔防</th>
                 <th>合計</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th colSpan={3}></th>
             </tr>
             <tr>
                 <th>ユニット成長率</th>
                 {baseGrowthRates ? Object.values(baseGrowthRates).map((value, i) => <td className="text-center" key={i}>{value}</td>): ''}
                 <td className="text-center ">{baseGrowthRates ? Object.values(baseGrowthRates).map((value) => value).reduce((sum, num) => sum + num) : ''}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colSpan={3}></td>
             </tr>
             <tr className="bg-red-50 dark:bg-violet-950">
                 <th>ユニット上限値</th>
                 {baseMaxStats ? Object.values(baseMaxStats).map((value, i) => <td className="text-center" key={i}>{value}</td>): ''}
                 <td className="text-center ">{baseMaxStats ? Object.values(baseMaxStats).map((value) => value).reduce((sum, num) => sum + num) : ''}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colSpan={3}></td>
             </tr>
             <tr>
                 <th>基本値調整</th>
@@ -570,9 +563,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                         </th>
                     );
                 })}
-                <th></th>
-                <th></th>
-                <th></th>
+                <th colSpan={3}></th>
             </tr>
             <tr>
                 <th>上限値調整</th>
@@ -585,9 +576,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                         </th>
                     );
                 })}
-                <th></th>
-                <th></th>
-                <th></th>
+                <th colSpan={3}></th>
             </tr>
         </thead>
         <tbody>
@@ -641,7 +630,6 @@ export default function Contents({units, classes, strengths, weaknesses, parents
             <tr><td colSpan={13} className="text-center py-2"><button className="bg-red-500 hover:bg-red-600 dark:bg-violet-600 dark:hover:bg-violet-500 text-white font-bold py-2 px-4 rounded" onClick={handleEP} data-testid="ep-button">Lv上限+5</button></td></tr>
         </tfoot>
     </table>
-</div>
 }
 </>
     );
