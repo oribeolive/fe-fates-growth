@@ -542,20 +542,20 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                 <th>合計</th>
                 <th colSpan={3}></th>
             </tr>
-            <tr>
+            <tr className="hidden sm:table-row">
                 <th>ユニット成長率</th>
                 {baseGrowthRates ? Object.values(baseGrowthRates).map((value, i) => <td className="text-center" key={i}>{value}</td>): ''}
                 <td className="text-center ">{baseGrowthRates ? Object.values(baseGrowthRates).map((value) => value).reduce((sum, num) => sum + num) : ''}</td>
                 <td colSpan={3}></td>
             </tr>
-            <tr className="bg-red-50 dark:bg-violet-950">
+            <tr className="bg-red-50 dark:bg-violet-950 hidden sm:table-row">
                 <th>ユニット上限値</th>
                 {baseMaxStats ? Object.values(baseMaxStats).map((value, i) => <td className="text-center" key={i}>{value}</td>): ''}
                 <td className="text-center ">{baseMaxStats ? Object.values(baseMaxStats).map((value) => value).reduce((sum, num) => sum + num) : ''}</td>
                 <td colSpan={3}></td>
             </tr>
             <tr>
-                <th>基本値調整</th>
+                <th>基本値<span className="hidden sm:inline">調整</span></th>
                 {Object.entries(inputedBaseStats).map((entry, i) => {
                     return (
                         <th key={`add-bs-th-${i}`}>
@@ -566,7 +566,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                 <th colSpan={3}></th>
             </tr>
             <tr>
-                <th>上限値調整</th>
+                <th>上限値<span className="hidden sm:inline">調整</span></th>
                 {Object.entries(inputedMaxStats).map((entry, i) => {
                     return (
                         <th key={`add-ms-th-${i}`}>
