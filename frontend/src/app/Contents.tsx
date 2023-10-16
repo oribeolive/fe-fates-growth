@@ -241,10 +241,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
     };
 
     const handleInputBaseStats = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let input = e.target.value;
-        if (input.length == 0) {
-            input = '0';
-        }
+        const input = e.target.value;
         if (!input.match(/^\-?[\d]{1,2}(\.[\d]{1,2})?$/)) {
             return;
         }
@@ -261,8 +258,12 @@ export default function Contents({units, classes, strengths, weaknesses, parents
     };
 
     const handleInputMaxStats = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const input = e.target.value;
+        if (!input.match(/^[\d]{1,2}$/)) {
+            return;
+        }
         if (e.target.name in inputedMaxStats) {
-            modifyAdditionalMaxStats(e.target.name as keyof StatsType, parseInt(e.target.value));
+            modifyAdditionalMaxStats(e.target.name as keyof StatsType, parseInt(input));
         }
     };
 
@@ -515,11 +516,15 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                 );
             })}
         </select>
+    </div>
+    <div className="mb-4">
         {
             selectedUnit?.parents && selectedParent ? 
             <SelectParents parents={selectedUnit.parents} selectedParent={selectedParent} selectParent={selectParent} /> 
             : ''
         }
+    </div>
+    <div className="mb-4">
         {
             parentsParents?.fixed && selectedGrandParent ? 
             <SelectParents parents={parentsParents} selectedParent={selectedGrandParent} selectParent={selectGrandParent} isGrand={true} /> 
@@ -559,7 +564,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                 {Object.entries(inputedBaseStats).map((entry, i) => {
                     return (
                         <th key={`add-bs-th-${i}`}>
-                            <input type="number" value={entry[1]} name={entry[0]} step="any" onInput={handleInputBaseStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="-99" max="99" />
+                            <input type="number" defaultValue={0} name={entry[0]} step="any" onInput={handleInputBaseStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="-99" max="99" />
                         </th>
                     );
                 })}
@@ -571,7 +576,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                     return (
                         <th key={`add-ms-th-${i}`}>
                             {entry[0] != 'hp' ? 
-                            <input type="number" value={entry[1]} name={entry[0]} onInput={handleInputMaxStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" max="15" min="0" />
+                            <input type="number" defaultValue={0} name={entry[0]} onInput={handleInputMaxStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" max="15" min="0" />
                             : ''}
                         </th>
                     );

@@ -23,7 +23,7 @@ export default function SelectParents({parents, selectedParent, selectParent, is
     const htmlId = (isGrand ? 'grand-' : '') + 'parent';
     return (
         <>
-            <label htmlFor={htmlId} className="mr-2">{ isGrand ? '2代' : '' }親 {parents?.fixed?.name} x </label>
+            <label htmlFor={htmlId} className="mr-2 block">{ isGrand ? '2代' : '' }親 {parents?.fixed?.name} x </label>
             <select 
                 onChange={handleSelectParent} 
                 data-is-strength="1"
