@@ -56,6 +56,14 @@ export default function Contents({units, classes, strengths, weaknesses, parents
     const [baseGrowthRates, setBaseGrowthRates] = useState<StatsType>();
     const [eternal, setEternal] = useState<number>(0);
     const unitSelectRef = useRef<HTMLSelectElement>(null);
+    const inputBaseStatsRefs = {
+        hp: useRef<HTMLInputElement>(null), str: useRef<HTMLInputElement>(null), mag: useRef<HTMLInputElement>(null), skl: useRef<HTMLInputElement>(null), 
+        spd: useRef<HTMLInputElement>(null), lck: useRef<HTMLInputElement>(null), def: useRef<HTMLInputElement>(null), res: useRef<HTMLInputElement>(null)
+    };
+    const inputMaxStatsRefs = {
+        hp: useRef<HTMLInputElement>(null), str: useRef<HTMLInputElement>(null), mag: useRef<HTMLInputElement>(null), skl: useRef<HTMLInputElement>(null), 
+        spd: useRef<HTMLInputElement>(null), lck: useRef<HTMLInputElement>(null), def: useRef<HTMLInputElement>(null), res: useRef<HTMLInputElement>(null)
+    };
 
     const handleSelectUnit = (e: { target: HTMLSelectElement }) => {
         const id = parseInt(e.target.value);
@@ -127,6 +135,17 @@ export default function Contents({units, classes, strengths, weaknesses, parents
         setInputedBaseStats({hp: 0, str: 0, mag: 0, skl: 0, spd: 0, lck: 0, def: 0, res: 0,});
         setInputedMaxStats({hp: 0, str: 0, mag: 0, skl: 0, spd: 0, lck: 0, def: 0, res: 0,});
         setEternal(0);
+
+        Object.values(inputBaseStatsRefs).forEach((value) => {
+            if (value.current) {
+                value.current.value = '0';
+            }
+        });
+        Object.values(inputMaxStatsRefs).forEach((value) => {
+            if (value.current) {
+                value.current.value = '0';
+            }
+        });
 
     };
 
@@ -265,6 +284,10 @@ export default function Contents({units, classes, strengths, weaknesses, parents
         if (e.target.name in inputedMaxStats) {
             modifyAdditionalMaxStats(e.target.name as keyof StatsType, parseInt(input));
         }
+    };
+
+    const handleFocusInput = (e: React.FocusEvent<HTMLInputElement>) => {
+        e.target.select();
     };
 
     const modifyAdditionalMaxStats = (key: keyof StatsType, value: number) => {
@@ -564,7 +587,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                 {Object.entries(inputedBaseStats).map((entry, i) => {
                     return (
                         <th key={`add-bs-th-${i}`}>
-                            <input type="number" defaultValue={0} name={entry[0]} step="any" onInput={handleInputBaseStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="-99" max="99" />
+                            <input type="number" defaultValue={0} name={entry[0]} ref={inputBaseStatsRefs[entry[0] as keyof StatsType]} step="any" onInput={handleInputBaseStats} onFocus={handleFocusInput} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="-99" max="99" />
                         </th>
                     );
                 })}
@@ -576,7 +599,7 @@ export default function Contents({units, classes, strengths, weaknesses, parents
                     return (
                         <th key={`add-ms-th-${i}`}>
                             {entry[0] != 'hp' ? 
-                            <input type="number" defaultValue={0} name={entry[0]} onInput={handleInputMaxStats} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" max="15" min="0" />
+                            <input type="number" defaultValue={0} name={entry[0]} ref={inputMaxStatsRefs[entry[0] as keyof StatsType]} onInput={handleInputMaxStats} onFocus={handleFocusInput} className="block w-16 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" max="15" min="0" />
                             : ''}
                         </th>
                     );
